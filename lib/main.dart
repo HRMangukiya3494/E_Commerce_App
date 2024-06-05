@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:ecommerce_app/view/screens/IntroScreen.dart';
 import 'package:ecommerce_app/view/screens/SplashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
       initialRoute: 'SplashScreen',
       routes: {
         'SplashScreen': (context) => const SplashScreen(),
+        'IntroScreen': (context) => const IntroScreen(),
       },
     );
   }
