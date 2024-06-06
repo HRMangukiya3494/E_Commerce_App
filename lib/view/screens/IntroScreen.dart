@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/view/utils/ColorUtils.dart';
+import 'package:ecommerce_app/view/utils/ImgUtils.dart';
 import 'package:flutter/material.dart';
 
 class IntroScreen extends StatefulWidget {
@@ -26,10 +27,13 @@ class _IntroScreenState extends State<IntroScreen> {
         curve: Curves.easeIn,
       );
     } else {}
+    if (_currentPage == 2) {
+      Navigator.of(context).pushNamedAndRemoveUntil('SignInPage', (route) => false);
+    }
   }
 
   void _skip() {
-    Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil('SignInPage', (route) => false);
   }
 
   Widget _buildPageIndicator(int index, height) {
@@ -65,20 +69,143 @@ class _IntroScreenState extends State<IntroScreen> {
               controller: _pageController,
               onPageChanged: _onPageChanged,
               children: [
-                Container(
-                  color: Colors.red,
-                  child: Center(
-                      child: Text("Page 1", style: TextStyle(fontSize: 24))),
+                Padding(
+                  padding: EdgeInsets.all(
+                    h * 0.02,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: h * 0.4,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              ImagePath + IntroVector1,
+                            ),
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: h * 0.02,
+                      ),
+                      Text(
+                        "Biggest Sell Of at your Clothing",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: h * 0.026,
+                          color: Colors.black,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: h * 0.02,
+                      ),
+                      Text(
+                        "Find your best products from popular shop without any delay.",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: h * 0.02,
+                          color: Colors.grey,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 ),
-                Container(
-                  color: Colors.green,
-                  child: Center(
-                      child: Text("Page 2", style: TextStyle(fontSize: 24))),
+                Padding(
+                  padding: EdgeInsets.all(
+                    h * 0.02,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: h * 0.4,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              ImagePath + IntroVector2,
+                            ),
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: h * 0.02,
+                      ),
+                      Text(
+                        "Biggest Sell Of at your Clothing",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: h * 0.026,
+                          color: Colors.black,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: h * 0.02,
+                      ),
+                      Text(
+                        "Find your best products from popular shop without any delay.",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: h * 0.02,
+                          color: Colors.grey,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 ),
-                Container(
-                  color: Colors.blue,
-                  child: Center(
-                      child: Text("Page 3", style: TextStyle(fontSize: 24))),
+                Padding(
+                  padding: EdgeInsets.all(
+                    h * 0.02,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: h * 0.4,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              ImagePath + IntroVector3,
+                            ),
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: h * 0.02,
+                      ),
+                      Text(
+                        "Biggest Sell Of at your Clothing",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: h * 0.026,
+                          color: Colors.black,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: h * 0.02,
+                      ),
+                      Text(
+                        "Find your best products from popular shop without any delay.",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: h * 0.02,
+                          color: Colors.grey,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
