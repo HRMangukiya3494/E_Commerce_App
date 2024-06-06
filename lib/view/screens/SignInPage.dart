@@ -164,12 +164,13 @@ class _SignInPageState extends State<SignInPage> {
                         if (value!.isEmpty) {
                           return 'Please enter a valid password';
                         }
-                        if (!RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$&*~]).{6,}$').hasMatch(value)) {
+                        if (!RegExp(
+                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$&*~]).{6,}$')
+                            .hasMatch(value)) {
                           return 'Please enter a valid password with at least 6 characters, including 1 uppercase, 1 lowercase, 1 digit, and 1 special character.';
                         }
                         return null;
                       },
-
                       decoration: InputDecoration(
                         hintText: 'Enter your password...',
                         hintStyle: const TextStyle(color: Colors.grey),
@@ -206,7 +207,7 @@ class _SignInPageState extends State<SignInPage> {
                         const Spacer(),
                         InkWell(
                           onTap: () {
-
+                            Navigator.of(context).pushNamed('ForgotPage');
                           },
                           child: Text(
                             "Forgot Password?",
@@ -272,7 +273,10 @@ class _SignInPageState extends State<SignInPage> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
-                              recognizer: TapGestureRecognizer()..onTap = () {},
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.of(context).pushNamed('SignupPage');
+                                },
                             ),
                           ],
                         ),

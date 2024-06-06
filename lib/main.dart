@@ -1,6 +1,9 @@
 import 'dart:developer';
+
+import 'package:ecommerce_app/view/screens/ForgotPage.dart';
 import 'package:ecommerce_app/view/screens/IntroScreen.dart';
 import 'package:ecommerce_app/view/screens/SignInPage.dart';
+import 'package:ecommerce_app/view/screens/SignUpPage.dart';
 import 'package:ecommerce_app/view/screens/SplashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,6 +38,8 @@ class MyApp extends StatelessWidget {
         'SplashScreen': (context) => const SplashScreen(),
         'IntroScreen': (context) => const IntroScreen(),
         'SignInPage': (context) => const SignInPage(),
+        'SignupPage': (context) => const SignUpPage(),
+        'ForgotPage': (context) => const ForgotPage(),
       },
     );
   }
