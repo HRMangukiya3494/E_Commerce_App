@@ -16,6 +16,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   bool _isChecked = false;
 
@@ -108,6 +109,76 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                           decoration: InputDecoration(
                             hintText: 'Enter your name...',
+                            hintStyle: const TextStyle(color: Colors.grey),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: Colors.black,
+                              ),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(
+                                  h * 0.01,
+                                ),
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: Colors.black,
+                              ),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(
+                                  h * 0.01,
+                                ),
+                              ),
+                            ),
+                            errorStyle: const TextStyle(
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: h * 0.03,
+                        ),
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Mobile No",
+                                style: TextStyle(
+                                  fontSize: h * 0.022,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: "*",
+                                style: TextStyle(
+                                  fontSize: h * 0.022,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: h * 0.01,
+                        ),
+                        TextFormField(
+                          controller: phoneController,
+                          onChanged: (value) {},
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your mobile number';
+                            }
+                            final RegExp mobileRegExp = RegExp(r'^[0-9]{10}$');
+                            if (!mobileRegExp.hasMatch(value)) {
+                              return 'Please enter a valid 10-digit mobile number';
+                            }
+                            return null;
+                          },
+
+                          decoration: InputDecoration(
+                            hintText: 'Enter mobile number...',
                             hintStyle: const TextStyle(color: Colors.grey),
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(

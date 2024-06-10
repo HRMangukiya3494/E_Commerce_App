@@ -3,14 +3,14 @@ import 'package:ecommerce_app/view/utils/ImgUtils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class ForgotPage extends StatefulWidget {
-  const ForgotPage({super.key});
+class ForgotVerificationPage extends StatefulWidget {
+  const ForgotVerificationPage({super.key});
 
   @override
-  State<ForgotPage> createState() => _ForgotPageState();
+  State<ForgotVerificationPage> createState() => _ForgotVerificationPageState();
 }
 
-class _ForgotPageState extends State<ForgotPage> {
+class _ForgotVerificationPageState extends State<ForgotVerificationPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
 
