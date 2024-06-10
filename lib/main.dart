@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:ecommerce_app/view/screens/ForgotPage.dart';
 import 'package:ecommerce_app/view/screens/ForgotVerificationPage.dart';
 import 'package:ecommerce_app/view/screens/IntroScreen.dart';
+import 'package:ecommerce_app/view/screens/NewPasswordPage.dart';
 import 'package:ecommerce_app/view/screens/SignInPage.dart';
 import 'package:ecommerce_app/view/screens/SignUpPage.dart';
 import 'package:ecommerce_app/view/screens/SplashScreen.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         'SignupPage': (context) => const SignUpPage(),
         'ForgotPage': (context) => const ForgotPage(),
         'ForgotVerificationPage': (context) => const ForgotVerificationPage(),
+        'NewPasswordPage': (context) => const NewPasswordPage(),
       },
     );
   }

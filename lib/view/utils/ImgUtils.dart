@@ -7,3 +7,5 @@ String IntroVector3 = "IntroVector3.png";
 String SigninVector = "SigninVector.png";
 String SignupVetor = "SignupVetor.png";
 String ForgotVetor = "ForgotVetor.png";
+String ForgotVerificationVector = "ForgotVerificationVector.png";
+String NewPasswordVector = "NewPasswordVector.png";
