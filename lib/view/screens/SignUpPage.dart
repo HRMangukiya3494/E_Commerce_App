@@ -1,24 +1,16 @@
-import 'package:ecommerce_app/view/utils/ColorUtils.dart';
-import 'package:ecommerce_app/view/utils/ImgUtils.dart';
+import 'package:ecommerce_app/controller/SignupController.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:ecommerce_app/view/utils/ColorUtils.dart';
+import 'package:ecommerce_app/view/utils/ImgUtils.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class SignUpPage extends StatelessWidget {
+  final SignUpController controller = Get.put(
+    SignUpController(),
+  );
 
-  @override
-  State<SignUpPage> createState() => _SignUpPageState();
-}
-
-class _SignUpPageState extends State<SignUpPage> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-
-  bool _isChecked = false;
+  SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +36,9 @@ class _SignUpPageState extends State<SignUpPage> {
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: EdgeInsets.all(
-                    h * 0.02,
-                  ),
+                  padding: EdgeInsets.all(h * 0.02),
                   child: Form(
-                    key: _formKey,
+                    key: controller.formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -60,340 +50,106 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                         Text(
-                          "welcome  back! Please enter your details",
+                          "Welcome back! Please enter your details",
                           style: TextStyle(
                             fontSize: h * 0.018,
                             fontWeight: FontWeight.normal,
                             color: Colors.grey,
                           ),
                         ),
-                        SizedBox(
-                          height: h * 0.01,
-                        ),
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "Name",
-                                style: TextStyle(
-                                  fontSize: h * 0.022,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
+                        SizedBox(height: h * 0.01),
+                        _buildTextField(
+                            h,
+                            "Name",
+                            "*",
+                            controller.nameController,
+                            "Enter your name...", (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your name';
+                          }
+                          if (value.length < 3) {
+                            return 'Name must be at least 3 characters';
+                          }
+                          return null;
+                        }),
+                        SizedBox(height: h * 0.03),
+                        _buildTextField(
+                            h,
+                            "Mobile No",
+                            "*",
+                            controller.phoneController,
+                            "Enter mobile number...", (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your mobile number';
+                          }
+                          final RegExp mobileRegExp = RegExp(r'^[0-9]{10}$');
+                          if (!mobileRegExp.hasMatch(value)) {
+                            return 'Please enter a valid 10-digit mobile number';
+                          }
+                          return null;
+                        }),
+                        SizedBox(height: h * 0.03),
+                        _buildTextField(
+                            h,
+                            "Email Address",
+                            "*",
+                            controller.emailController,
+                            "Enter your email...", (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter an email';
+                          }
+                          if (!RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$')
+                              .hasMatch(value)) {
+                            return 'Please enter a valid email';
+                          }
+                          return null;
+                        }),
+                        SizedBox(height: h * 0.03),
+                        _buildTextField(
+                            h,
+                            "Password",
+                            "*",
+                            controller.passwordController,
+                            "Enter your password...", (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter a valid password';
+                          }
+                          if (!RegExp(
+                                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$&*~]).{6,}$')
+                              .hasMatch(value)) {
+                            return 'Please enter a valid password with at least 6 characters, including 1 uppercase, 1 lowercase, 1 digit, and 1 special character.';
+                          }
+                          return null;
+                        }),
+                        SizedBox(height: h * 0.01),
+                        Obx(() => Row(
+                              children: [
+                                Checkbox(
+                                  value: controller.isChecked.value,
+                                  onChanged: (bool? value) {
+                                    controller.isChecked.value = value!;
+                                  },
                                 ),
-                              ),
-                              TextSpan(
-                                text: "*",
-                                style: TextStyle(
-                                  fontSize: h * 0.022,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.red,
+                                Text(
+                                  "I agree to all terms, privacy and fees",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: h * 0.018,
+                                    color: Colors.black,
+                                  ),
+                                  textAlign: TextAlign.end,
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: h * 0.01,
-                        ),
-                        TextFormField(
-                          controller: nameController,
-                          onChanged: (value) {},
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your name';
-                            }
-                            if (value.length < 3) {
-                              return 'Name must be at least 3 characters';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            hintText: 'Enter your name...',
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  h * 0.01,
-                                ),
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  h * 0.01,
-                                ),
-                              ),
-                            ),
-                            errorStyle: const TextStyle(
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: h * 0.03,
-                        ),
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "Mobile No",
-                                style: TextStyle(
-                                  fontSize: h * 0.022,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              TextSpan(
-                                text: "*",
-                                style: TextStyle(
-                                  fontSize: h * 0.022,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: h * 0.01,
-                        ),
-                        TextFormField(
-                          controller: phoneController,
-                          onChanged: (value) {},
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your mobile number';
-                            }
-                            final RegExp mobileRegExp = RegExp(r'^[0-9]{10}$');
-                            if (!mobileRegExp.hasMatch(value)) {
-                              return 'Please enter a valid 10-digit mobile number';
-                            }
-                            return null;
-                          },
-
-                          decoration: InputDecoration(
-                            hintText: 'Enter mobile number...',
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  h * 0.01,
-                                ),
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  h * 0.01,
-                                ),
-                              ),
-                            ),
-                            errorStyle: const TextStyle(
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: h * 0.03,
-                        ),
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "Email Address",
-                                style: TextStyle(
-                                  fontSize: h * 0.022,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              TextSpan(
-                                text: "*",
-                                style: TextStyle(
-                                  fontSize: h * 0.022,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: h * 0.01,
-                        ),
-                        TextFormField(
-                          controller: emailController,
-                          onChanged: (value) {},
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter an email';
-                            }
-                            if (!RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                .hasMatch(value)) {
-                              return 'Please enter a valid email';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            hintText: 'Enter your email...',
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  h * 0.01,
-                                ),
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  h * 0.01,
-                                ),
-                              ),
-                            ),
-                            errorStyle: const TextStyle(
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: h * 0.03,
-                        ),
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "Password",
-                                style: TextStyle(
-                                  fontSize: h * 0.022,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              TextSpan(
-                                text: "*",
-                                style: TextStyle(
-                                  fontSize: h * 0.022,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: h * 0.01,
-                        ),
-                        TextFormField(
-                          controller: passwordController,
-                          onChanged: (value) {},
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter a valid password';
-                            }
-                            if (!RegExp(
-                                    r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$&*~]).{6,}$')
-                                .hasMatch(value)) {
-                              return 'Please enter a valid password with at least 6 characters, including 1 uppercase, 1 lowercase, 1 digit, and 1 special character.';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            hintText: 'Enter your password...',
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  h * 0.01,
-                                ),
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  h * 0.01,
-                                ),
-                              ),
-                            ),
-                            errorStyle: const TextStyle(
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: h * 0.01,
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _isChecked,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  _isChecked = value!;
-                                });
-                              },
-                            ),
-                            Text(
-                              "I agree to all term, privacy and fees",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: h * 0.018,
-                                color: Colors.black,
-                              ),
-                              textAlign: TextAlign.end,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: h * 0.02,
-                        ),
+                              ],
+                            )),
+                        SizedBox(height: h * 0.02),
                         GestureDetector(
-                          onTap: () {
-                            if (_formKey.currentState!.validate()) {
-                              if (_isChecked == false) {
-                                Fluttertoast.showToast(
-                                  msg: "Checkbox Fill First...",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  backgroundColor: Colors.black,
-                                  textColor: Colors.white,
-                                  fontSize: 16.0,
-                                );
-                              } else if (_isChecked == true) {}
-                            }
-                          },
+                          onTap: controller.signUp,
                           child: Container(
                             height: h * 0.08,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               color: ColorUtils.primaryColor,
-                              borderRadius: BorderRadius.circular(
-                                h * 0.02,
-                              ),
+                              borderRadius: BorderRadius.circular(h * 0.02),
                             ),
                             child: Center(
                               child: Text(
@@ -407,9 +163,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: h * 0.01,
-                        ),
+                        SizedBox(height: h * 0.01),
                         Center(
                           child: Text.rich(
                             TextSpan(
@@ -449,6 +203,60 @@ class _SignUpPageState extends State<SignUpPage> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildTextField(
+      double h,
+      String label,
+      String asterisk,
+      TextEditingController controller,
+      String hintText,
+      String? Function(String?) validator) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text.rich(
+          TextSpan(
+            children: [
+              TextSpan(
+                text: label,
+                style: TextStyle(
+                  fontSize: h * 0.022,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black,
+                ),
+              ),
+              TextSpan(
+                text: asterisk,
+                style: TextStyle(
+                  fontSize: h * 0.022,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.red,
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: h * 0.01),
+        TextFormField(
+          controller: controller,
+          validator: validator,
+          decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: const TextStyle(color: Colors.grey),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.black),
+              borderRadius: BorderRadius.all(Radius.circular(h * 0.01)),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.black),
+              borderRadius: BorderRadius.all(Radius.circular(h * 0.01)),
+            ),
+            errorStyle: const TextStyle(color: Colors.red),
+          ),
+        ),
+      ],
     );
   }
 }
