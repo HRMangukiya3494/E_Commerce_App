@@ -1,7 +1,9 @@
+import 'package:ecommerce_app/view/routes/AppRoutes.dart';
 import 'package:ecommerce_app/view/utils/ColorUtils.dart';
 import 'package:ecommerce_app/view/utils/ImgUtils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ForgotPage extends StatefulWidget {
   const ForgotPage({super.key});
@@ -136,8 +138,10 @@ class _ForgotPageState extends State<ForgotPage> {
                         GestureDetector(
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
+                              Get.toNamed(
+                                AppRoutes.FORGOT_VERIFICATION,
+                              );
                             }
-                            Navigator.of(context).pushNamed('ForgotVerificationPage');
                           },
                           child: Container(
                             height: h * 0.08,
@@ -184,8 +188,8 @@ class _ForgotPageState extends State<ForgotPage> {
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      Navigator.of(context)
-                                          .pushNamed('SignInPage');
+
+                                      Get.offAllNamed(AppRoutes.SIGNIN);
                                     },
                                 ),
                               ],

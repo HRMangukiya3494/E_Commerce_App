@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:ecommerce_app/view/routes/AppRoutes.dart';
 import 'package:ecommerce_app/view/utils/ColorUtils.dart';
 import 'package:ecommerce_app/view/utils/ImgUtils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pin_input_text_field/pin_input_text_field.dart';
 
 class ForgotVerificationPage extends StatefulWidget {
@@ -137,7 +139,7 @@ class _ForgotVerificationPageState extends State<ForgotVerificationPage> {
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
                             }
-                            Navigator.of(context).pushNamed('NewPasswordPage');
+                            Get.toNamed(AppRoutes.NEW_PASSWORD);
                           },
                           child: Container(
                             height: h * 0.08,
@@ -184,8 +186,7 @@ class _ForgotVerificationPageState extends State<ForgotVerificationPage> {
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      Navigator.of(context)
-                                          .pushNamed('SignInPage');
+                                    Get.offAllNamed(AppRoutes.SIGNIN);
                                     },
                                 ),
                               ],

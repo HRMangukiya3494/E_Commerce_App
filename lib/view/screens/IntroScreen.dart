@@ -1,6 +1,8 @@
+import 'package:ecommerce_app/view/routes/AppRoutes.dart';
 import 'package:ecommerce_app/view/utils/ColorUtils.dart';
 import 'package:ecommerce_app/view/utils/ImgUtils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -28,12 +30,12 @@ class _IntroScreenState extends State<IntroScreen> {
       );
     } else {}
     if (_currentPage == 2) {
-      Navigator.of(context).pushNamedAndRemoveUntil('SignInPage', (route) => false);
+      Get.offAllNamed(AppRoutes.SIGNIN);
     }
   }
 
   void _skip() {
-    Navigator.of(context).pushNamedAndRemoveUntil('SignInPage', (route) => false);
+    Get.offAllNamed(AppRoutes.SIGNIN);
   }
 
   Widget _buildPageIndicator(int index, height) {

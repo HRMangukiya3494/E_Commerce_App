@@ -1,4 +1,6 @@
 import 'package:ecommerce_app/controller/SignupController.dart';
+import 'package:ecommerce_app/view/routes/AppRoutes.dart';
+import 'package:ecommerce_app/view/widgets/TextFormField.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +17,6 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
-    double w = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -58,7 +59,7 @@ class SignUpPage extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: h * 0.01),
-                        _buildTextField(
+                        BuildTextField(
                             h,
                             "Name",
                             "*",
@@ -73,7 +74,7 @@ class SignUpPage extends StatelessWidget {
                           return null;
                         }),
                         SizedBox(height: h * 0.03),
-                        _buildTextField(
+                        BuildTextField(
                             h,
                             "Mobile No",
                             "*",
@@ -89,7 +90,7 @@ class SignUpPage extends StatelessWidget {
                           return null;
                         }),
                         SizedBox(height: h * 0.03),
-                        _buildTextField(
+                        BuildTextField(
                             h,
                             "Email Address",
                             "*",
@@ -105,7 +106,7 @@ class SignUpPage extends StatelessWidget {
                           return null;
                         }),
                         SizedBox(height: h * 0.03),
-                        _buildTextField(
+                        BuildTextField(
                             h,
                             "Password",
                             "*",
@@ -115,7 +116,7 @@ class SignUpPage extends StatelessWidget {
                             return 'Please enter a valid password';
                           }
                           if (!RegExp(
-                                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$&*~]).{6,}$')
+                              r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$&*~]).{6,}$')
                               .hasMatch(value)) {
                             return 'Please enter a valid password with at least 6 characters, including 1 uppercase, 1 lowercase, 1 digit, and 1 special character.';
                           }
@@ -123,24 +124,24 @@ class SignUpPage extends StatelessWidget {
                         }),
                         SizedBox(height: h * 0.01),
                         Obx(() => Row(
-                              children: [
-                                Checkbox(
-                                  value: controller.isChecked.value,
-                                  onChanged: (bool? value) {
-                                    controller.isChecked.value = value!;
-                                  },
-                                ),
-                                Text(
-                                  "I agree to all terms, privacy and fees",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: h * 0.018,
-                                    color: Colors.black,
-                                  ),
-                                  textAlign: TextAlign.end,
-                                ),
-                              ],
-                            )),
+                          children: [
+                            Checkbox(
+                              value: controller.isChecked.value,
+                              onChanged: (bool? value) {
+                                controller.isChecked.value = value!;
+                              },
+                            ),
+                            Text(
+                              "I agree to all terms, privacy and fees",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: h * 0.018,
+                                color: Colors.black,
+                              ),
+                              textAlign: TextAlign.end,
+                            ),
+                          ],
+                        )),
                         SizedBox(height: h * 0.02),
                         GestureDetector(
                           onTap: controller.signUp,
@@ -185,9 +186,7 @@ class SignUpPage extends StatelessWidget {
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      Navigator.of(context)
-                                          .pushNamedAndRemoveUntil(
-                                              'SignInPage', (route) => false);
+                                      Get.offAllNamed(AppRoutes.SIGNIN);
                                     },
                                 ),
                               ],
@@ -203,60 +202,6 @@ class SignUpPage extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildTextField(
-      double h,
-      String label,
-      String asterisk,
-      TextEditingController controller,
-      String hintText,
-      String? Function(String?) validator) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(
-                text: label,
-                style: TextStyle(
-                  fontSize: h * 0.022,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.black,
-                ),
-              ),
-              TextSpan(
-                text: asterisk,
-                style: TextStyle(
-                  fontSize: h * 0.022,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.red,
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: h * 0.01),
-        TextFormField(
-          controller: controller,
-          validator: validator,
-          decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: const TextStyle(color: Colors.grey),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.black),
-              borderRadius: BorderRadius.all(Radius.circular(h * 0.01)),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.black),
-              borderRadius: BorderRadius.all(Radius.circular(h * 0.01)),
-            ),
-            errorStyle: const TextStyle(color: Colors.red),
-          ),
-        ),
-      ],
     );
   }
 }

@@ -1,8 +1,10 @@
+import 'package:ecommerce_app/view/routes/AppRoutes.dart';
 import 'package:ecommerce_app/view/utils/ColorUtils.dart';
 import 'package:ecommerce_app/view/utils/ImgUtils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 
 class NewPasswordPage extends StatefulWidget {
   const NewPasswordPage({super.key});
@@ -222,8 +224,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                                 );
                               }
                             }
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                '/', (routes) => false);
+                            Get.offAllNamed(AppRoutes.HOME);
                           },
                           child: Container(
                             height: h * 0.08,
@@ -270,8 +271,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      Navigator.of(context)
-                                          .pushNamed('SignInPage');
+                                      Get.toNamed(AppRoutes.SIGNIN);
                                     },
                                 ),
                               ],
