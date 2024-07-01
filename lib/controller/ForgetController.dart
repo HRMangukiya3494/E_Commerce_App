@@ -31,7 +31,7 @@ class ForgotController extends GetxController {
           backgroundColor: Colors.green,
           colorText: Colors.white,
         );
-        Get.toNamed(AppRoutes.FORGOT_VERIFICATION);
+        Get.toNamed(AppRoutes.FORGOT_VERIFICATION,arguments: email,);
       } else {
         Get.snackbar(
           'Oops...',
