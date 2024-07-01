@@ -37,7 +37,7 @@ class AppRoutes {
     ),
     GetPage(
       name: FORGOT,
-      page: () => const ForgotPage(),
+      page: () => ForgotPage(),
     ),
     GetPage(
       name: FORGOT_VERIFICATION,
